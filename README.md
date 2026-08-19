@@ -117,12 +117,22 @@ pip install .
 
 ```bash
 sudo iloc set <latitude> <longitude>   # simulate a fixed location
+iloc pick                              # choose a location visually on a map
 iloc status                            # device info, Developer Mode, active simulation
 sudo iloc clear                        # stop simulating, resume real GPS
 ```
 
 `status` doesn't require `sudo` -- it only reads device/lockdown info and
 this tool's own state file.
+
+### Picking a location on a map
+
+`iloc pick` opens a map window (search by place name or click/drag a pin)
+instead of typing raw coordinates. It runs unprivileged for the GUI part,
+then shells out to `sudo iloc set` once you confirm a point (see
+[How it works](#how-it-works) for why).
+
+![iloc pick -- a dark-themed map window for choosing a location](docs/screenshots/pick.png)
 
 ## Project layout
 
