@@ -48,11 +48,21 @@ independent layers of consent, both established once per Mac/device pair:
    between the Mac and the phone. This is required for *any* tool to talk to
    the phone's `lockdownd` services at all (basic info, backups, app
    installs).
-2. **Developer Mode** -- a separate, explicit iOS setting (Settings ->
-   Privacy & Security -> Developer Mode) introduced because debugging/
-   instrumentation services became a real attack surface. Even a fully
-   paired host is refused access to developer services until this is turned
-   on, on the device, with a passcode confirmation after a reboot.
+2. **Developer Mode** -- a separate, explicit iOS setting introduced because
+   debugging/instrumentation services became a real attack surface. Even a
+   fully paired host is refused access to developer services until this is
+   turned on, on the device, with a passcode confirmation after a reboot.
+
+   The catch: on a device that's never had Developer Mode touched before,
+   **the toggle doesn't even exist yet** in Settings -> Privacy & Security --
+   it stays hidden until a paired host explicitly asks iOS to reveal it. Run
+   this from your Mac first:
+   ```bash
+   python3 -m pymobiledevice3 amfi enable-developer-mode
+   ```
+   Then reboot the iPhone -- only after that will Settings -> Privacy &
+   Security show a "Developer Mode" row at all, which you then toggle on and
+   confirm (with your passcode) after a second reboot.
 
 ### The iOS 17+ tunnel (RemoteXPC)
 
